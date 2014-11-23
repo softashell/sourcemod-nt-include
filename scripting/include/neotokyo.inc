@@ -87,11 +87,19 @@ stock SetPlayerVision(client, vision)
 	return SetEntProp(i, Prop_Send, "m_iVision", vision);
 }
 
+stock GetPlayerLean(client)
+{
+	return GetEntProp(i, Prop_Send, "m_iLean");
+}
+
+stock SetPlayerLean(client, lean)
+{
+	return SetEntProp(client, Prop_Send, "m_iLean", lean);
+}
+
 stock bool:IsLeaning(client)
 {
-	new leaning = GetEntProp(client, Prop_Send, "m_iLean");
-	
-	if (leaning > 0)
+	if (GetPlayerLean(client) > 0)
 		return true;
 	
 	return false;
@@ -103,7 +111,6 @@ stock bool:IsUsingVision(client)
 		return true;
 	
 	return false;
-}
 
 stock bool:IsValidClient(client)
 {
