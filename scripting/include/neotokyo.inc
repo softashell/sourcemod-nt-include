@@ -99,9 +99,7 @@ stock bool:IsLeaning(client)
 
 stock bool:IsUsingVision(client)
 {
-	new vision = GetEntProp(client, Prop_Send, "m_iVision");
-	
-	if (vision > 0)
+	if (GetPlayerVision(client) > 0)
 		return true;
 	
 	return false;
