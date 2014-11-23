@@ -79,17 +79,17 @@ stock GetActiveWeapon(client)
 
 stock GetPlayerVision(client)
 {
-	return GetEntProp(i, Prop_Send, "m_iVision");
+	return GetEntProp(client, Prop_Send, "m_iVision");
 }
 
 stock SetPlayerVision(client, vision)
 {
-	return SetEntProp(i, Prop_Send, "m_iVision", vision);
+	return SetEntProp(client, Prop_Send, "m_iVision", vision);
 }
 
 stock GetPlayerLean(client)
 {
-	return GetEntProp(i, Prop_Send, "m_iLean");
+	return GetEntProp(client, Prop_Send, "m_iLean");
 }
 
 stock SetPlayerLean(client, lean)
@@ -111,6 +111,7 @@ stock bool:IsUsingVision(client)
 		return true;
 	
 	return false;
+}
 
 stock bool:IsValidClient(client)
 {
