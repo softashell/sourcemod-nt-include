@@ -97,14 +97,14 @@ stock SetPlayerLean(client, lean)
 	return SetEntProp(client, Prop_Send, "m_iLean", lean);
 }
 
-stock GetPlayerThermopticCharge(client)
+stock float:GetPlayerThermopticCharge(client)
 {
-	GetEntPropFloat(client, Prop_Send, "m_fThermopticNRG");
+	return GetEntPropFloat(client, Prop_Send, "m_fThermopticNRG");
 }
 
 stock SetPlayerThermopticCharge(client, float:amount)
 {
-	SetEntPropFloat(client, Prop_Send, "m_fThermopticNRG", amount);
+	return SetEntPropFloat(client, Prop_Send, "m_fThermopticNRG", amount);
 }
 
 stock bool:IsCloaked(client)
