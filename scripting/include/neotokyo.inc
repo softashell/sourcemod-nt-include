@@ -97,6 +97,16 @@ stock SetPlayerLean(client, lean)
 	return SetEntProp(client, Prop_Send, "m_iLean", lean);
 }
 
+stock float:GetPlayerAUX(client)
+{
+	return GetEntPropFloat(client, Prop_Send, "m_fSprintNRG");
+}
+
+stock SetPlayerAUX(client, float:amount)
+{
+	return SetEntPropFloat(client, Prop_Send, "m_fSprintNRG", amount);
+}
+
 stock float:GetPlayerThermopticCharge(client)
 {
 	return GetEntPropFloat(client, Prop_Send, "m_fThermopticNRG");
