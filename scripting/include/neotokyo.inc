@@ -87,6 +87,16 @@ stock SetPlayerVision(client, vision)
 	return SetEntProp(i, Prop_Send, "m_iVision", vision);
 }
 
+stock GetPlayerLean(client)
+{
+	return GetEntProp(i, Prop_Send, "m_iLean");
+}
+
+stock SetPlayerLean(client, lean)
+{
+	return SetEntProp(client, Prop_Send, "m_iLean", lean);
+}
+
 stock bool:IsValidClient(client)
 {
 	if ((client < 1) || (client > MaxClients))
