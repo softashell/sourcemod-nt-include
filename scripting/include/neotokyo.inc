@@ -87,6 +87,26 @@ stock SetPlayerVision(client, vision)
 	return SetEntProp(i, Prop_Send, "m_iVision", vision);
 }
 
+stock bool:IsLeaning(client)
+{
+	new leaning = GetEntProp(client, Prop_Send, "m_iLean");
+	
+	if (leaning > 0)
+		return true;
+	
+	return false;
+}
+
+stock bool:IsUsingVision(client)
+{
+	new vision = GetEntProp(client, Prop_Send, "m_iVision");
+	
+	if (vision > 0)
+		return true;
+	
+	return false;
+}
+
 stock bool:IsValidClient(client)
 {
 	if ((client < 1) || (client > MaxClients))
