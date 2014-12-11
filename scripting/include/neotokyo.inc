@@ -20,6 +20,10 @@
 #define VISION_THERMAL 	3
 #define VISION_MOTION	4
 
+#define CLASS_RECON		1
+#define CLASS_ASSAULT	2
+#define CLASS_SUPPORT	3
+
 stock GetPlayerRank(client)
 {
 	return GetEntProp(client, Prop_Send, "m_iRank");
