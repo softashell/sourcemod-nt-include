@@ -20,6 +20,10 @@
 #define VISION_THERMAL 	3
 #define VISION_MOTION	4
 
+#define CLASS_RECON		1
+#define CLASS_ASSAULT	2
+#define CLASS_SUPPORT	3
+
 stock GetPlayerRank(client)
 {
 	return GetEntProp(client, Prop_Send, "m_iRank");
@@ -164,23 +168,21 @@ stock StripPlayerWeapons(client, bool:knife=false)
 
 	for(new weapon; weapon <= 5; weapon++)
 	{
-			new ent = GetEntDataEnt2(i, offsetMyWeapons + (weapon * 4));
+		new ent = GetEntDataEnt2(client, offsetMyWeapons + (weapon * 4));
 
-			if(!IsValidEntity(ent))
+		if(!IsValidEntity(ent))
+			continue;
+
+		if(knife)
+		{
+			if(!GetEdictClassname(weapon, classname, 13))
 				continue;
 
-			if(knife)
-			{
-				if(!GetEdictClassname(wpn, classname, 13))
-					continue;
+			if(StrEqual(classname, "weapon_knife"))
+				continue;
+		}
 
-				if(StrEqual(classname, "weapon_knife"))
-					continue;
-			}
-
-			RemovePlayerItem(client, wpn);
-			RemoveEdict(wpn);
+		RemovePlayerItem(client, weapon);
+		RemoveEdict(weapon);
 	}
-
-	return weapons;
 }
