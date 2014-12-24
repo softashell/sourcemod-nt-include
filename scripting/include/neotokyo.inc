@@ -24,6 +24,35 @@
 #define CLASS_ASSAULT	2
 #define CLASS_SUPPORT	3
 
+
+stock SetPlayerXP(client, xp)
+{
+	return SetEntProp(client, Prop_Data, "m_iFrags", xp);
+}
+
+stock GetPlayerXP(client)
+{
+	return GetClientFrags(client);
+}
+
+stock UpdatePlayerRank(client)
+{
+	new xp = GetPlayerXP(client);
+
+	new rank = 0; // Rankless dog
+
+	if(xp >= 0 && xp <= 3)
+		rank = 1; // Private
+	else if(xp >= 4 && xp <= 9)
+		rank = 2; // Corporal
+	else if(xp >= 10 && xp <= 19)
+		rank = 3; // Sergeant
+	else if(xp >= 20)
+		rank = 4; // Lieutenant
+
+	return SetPlayerRank(client, rank);
+}
+
 stock GetPlayerRank(client)
 {
 	return GetEntProp(client, Prop_Send, "m_iRank");
@@ -32,6 +61,16 @@ stock GetPlayerRank(client)
 stock SetPlayerRank(client, rank)
 {
 	return SetEntProp(client, Prop_Send, "m_iRank", rank);
+}
+
+stock GetPlayerDeaths(client)
+{
+	return GetEntProp(client, Prop_Data, "m_iDeaths");	
+}
+
+stock SetPlayerDeaths(client, deaths)
+{
+	return SetEntProp(client, Prop_Data, "m_iDeaths", deaths);
 }
 
 stock GetPlayerStar(client)
