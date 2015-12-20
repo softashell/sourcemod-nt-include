@@ -24,6 +24,13 @@
 #define CLASS_ASSAULT	2
 #define CLASS_SUPPORT	3
 
+#define IN_AIM			(1 << 23)
+#define IN_LEANL		(1 << 24)
+#define IN_LEANR		(1 << 25)
+#define IN_SPRINT		(1 << 26)
+#define IN_THERMOPTIC	(1 << 27)
+#define IN_VISION		(1 << 28)
+#define IN_TOSS			(1 << 29)
 
 stock SetPlayerXP(client, xp)
 {
