@@ -110,16 +110,26 @@ stock GetAmmoType(weapon)
 
 stock GetWeaponAmmo(client, type)
 {
-    new offsetAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo");
+	static m_iAmmo;
 
-    return GetEntData(client, offsetAmmo + (type * 4));
+	if (!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
+	{
+		ThrowError("Failed to obtain offset: \"m_iAmmo\"!");
+	}
+
+	return GetEntData(client, m_iAmmo + (type * 4));
 }  
 
 stock SetWeaponAmmo(client, type, ammo)
 {
-    new offsetAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo");
+	static m_iAmmo;
 
-    return SetEntData(client, offsetAmmo + (type * 4), ammo);
+	if (!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
+	{
+		ThrowError("Failed to obtain offset: \"m_iAmmo\"!");
+	}
+
+	return SetEntData(client, m_iAmmo + (type * 4), ammo);
 }
 
 stock GetActiveWeapon(client)
@@ -213,7 +223,7 @@ stock StripPlayerWeapons(client, bool:knife=false)
 
 	if (!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
 	{
-		ThrowError("Failed to obtain: \"m_hMyWeapons\"!");
+		ThrowError("Failed to obtain offset: \"m_hMyWeapons\"!");
 	}
 
 	new slot;
