@@ -209,18 +209,26 @@ stock bool:IsValidClient(client)
 
 stock StripPlayerWeapons(client, bool:knife=false)
 {
-	new String:classname[13];
-	new offsetMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons");
+	static hMyWeapons;
 
-	for(new weapon; weapon <= 5; weapon++)
+	if (!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
 	{
-		new ent = GetEntDataEnt2(client, offsetMyWeapons + (weapon * 4));
+		ThrowError("Failed to obtain: \"m_hMyWeapons\"!");
+	}
 
-		if(!IsValidEntity(ent))
+	new slot;
+
+	for(slot = 0; slot <= 5; slot++)
+	{
+		new weapon = GetEntDataEnt2(client, hMyWeapons + (slot * 4));
+
+		if(!IsValidEntity(weapon))
 			continue;
 
 		if(knife)
 		{
+			decl String:classname[13];
+
 			if(!GetEdictClassname(weapon, classname, 13))
 				continue;
 
