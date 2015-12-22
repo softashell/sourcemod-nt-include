@@ -112,7 +112,7 @@ stock GetWeaponAmmo(client, type)
 {
 	static m_iAmmo;
 
-	if (!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
+	if(!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
 	{
 		ThrowError("Failed to obtain offset: \"m_iAmmo\"!");
 	}
@@ -124,7 +124,7 @@ stock SetWeaponAmmo(client, type, ammo)
 {
 	static m_iAmmo;
 
-	if (!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
+	if(!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
 	{
 		ThrowError("Failed to obtain offset: \"m_iAmmo\"!");
 	}
@@ -208,7 +208,7 @@ stock bool:IsValidClient(client)
 	if(1 > client > MaxClients) 
 		return false;
 	
-	if (!IsClientInGame(client))
+	if(!IsClientInGame(client))
 		return false;
 	
 	return true;
@@ -218,7 +218,7 @@ stock StripPlayerWeapons(client, bool:knife=false)
 {
 	static hMyWeapons;
 
-	if (!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
+	if(!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
 	{
 		ThrowError("Failed to obtain offset: \"m_hMyWeapons\"!");
 	}
