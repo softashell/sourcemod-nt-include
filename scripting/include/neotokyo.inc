@@ -205,7 +205,7 @@ stock bool:IsUsingVision(client)
 
 stock bool:IsValidClient(client)
 {
-	if(1 > client > MaxClients) 
+	if (client < 1 || client > MaxClients)
 		return false;
 	
 	if(!IsClientInGame(client))
