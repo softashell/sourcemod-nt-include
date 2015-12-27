@@ -32,6 +32,42 @@
 #define IN_VISION		(1 << 28)
 #define IN_TOSS			(1 << 29)
 
+#define SLOT_NONE -1
+#define SLOT_PRIMARY 1
+#define SLOT_SECONDARY 2
+#define SLOT_MELEE 3
+#define SLOT_GRENADE 4
+
+char weapons_primary[][] = {
+	"weapon_ghost",
+	"weapon_mpn",
+	"weapon_srm",
+	"weapon_srm_s",
+	"weapon_jitte",
+	"weapon_jittescoped",
+	"weapon_zr68",
+	"weapon_zr68s",
+	"weapon_supa7",
+	"weapon_m41",
+	"weapon_m41s",
+	"weapon_mx",
+	"weapon_mx_silenced",
+	"weapon_aa13",
+	"weapon_srs",	
+};
+
+char weapons_secondary[][] = {
+	"weapon_tachi",
+	"weapon_milso",
+	"weapon_kyla"
+};
+
+char weapons_grenade[][] = {
+	"weapon_grenade",
+	"weapon_grenade",
+	"weapon_remotedet"
+};
+
 stock SetPlayerXP(client, xp)
 {
 	return SetEntProp(client, Prop_Data, "m_iFrags", xp);
@@ -246,4 +282,64 @@ stock StripPlayerWeapons(client, bool:knife=false)
 		RemovePlayerItem(client, weapon);
 		RemoveEdict(weapon);
 	}
+}
+
+stock int GetWeaponSlot(int weapon)
+{
+	if(!IsValidEdict(weapon))
+		return SLOT_NONE;
+
+	char classname[30];
+	if(!GetEntityClassname(weapon, classname, sizeof(classname)))
+		return SLOT_NONE; // Can't get class name
+
+	if(StrContains(classname, "weapon_") == -1)
+		return SLOT_NONE; // Not a weapon
+
+	if(StrEqual(classname, "weapon_knife"))
+		return SLOT_MELEE;
+
+	int i;
+
+	for(i = 0; i < sizeof(weapons_primary); i++)
+	{
+		if(StrEqual(classname, weapons_primary[i]))
+			return SLOT_PRIMARY;
+	}
+
+	for(i = 0; i < sizeof(weapons_secondary); i++)
+	{
+		if(StrEqual(classname, weapons_secondary[i]))
+			return SLOT_SECONDARY;
+	}
+
+	for(i = 0; i < sizeof(weapons_grenade); i++)
+	{
+		if(StrEqual(classname, weapons_grenade[i]))
+			return SLOT_GRENADE;
+	}
+
+	return SLOT_NONE; // Unknown weapon
+}
+
+stock int GetWeaponFromSlot(int client, int weapon_slot)
+{
+	static int hMyWeapons;
+
+	if (!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
+	{
+		ThrowError("Failed to obtain: \"m_hMyWeapons\"!");
+	}
+
+	for(int slot; slot <= 5; slot++)
+	{
+		int weapon = GetEntDataEnt2(client, hMyWeapons + (slot * 4));
+
+		if(GetWeaponSlot(weapon) == weapon_slot)
+		{
+			return weapon;
+		}
+	}
+
+	return -1; // Doesn't have any weapons in target slot
 }
