@@ -33,10 +33,10 @@
 #define IN_TOSS			(1 << 29)
 
 #define SLOT_NONE -1
-#define SLOT_PRIMARY 1
-#define SLOT_SECONDARY 2
-#define SLOT_MELEE 3
-#define SLOT_GRENADE 4
+#define SLOT_PRIMARY 0
+#define SLOT_SECONDARY 1
+#define SLOT_MELEE 2
+#define SLOT_GRENADE 3
 
 char weapons_primary[][] = {
 	"weapon_ghost",
@@ -322,7 +322,7 @@ stock int GetWeaponSlot(int weapon)
 	return SLOT_NONE; // Unknown weapon
 }
 
-stock int GetWeaponFromSlot(int client, int weapon_slot)
+stock int GetWeaponFromSlot(int client, int slot)
 {
 	static int hMyWeapons;
 
@@ -331,15 +331,5 @@ stock int GetWeaponFromSlot(int client, int weapon_slot)
 		ThrowError("Failed to obtain: \"m_hMyWeapons\"!");
 	}
 
-	for(int slot; slot <= 5; slot++)
-	{
-		int weapon = GetEntDataEnt2(client, hMyWeapons + (slot * 4));
-
-		if(GetWeaponSlot(weapon) == weapon_slot)
-		{
-			return weapon;
-		}
-	}
-
-	return -1; // Doesn't have any weapons in target slot
+	return GetEntDataEnt2(client, hMyWeapons + (slot * 4));
 }
