@@ -53,7 +53,8 @@ char weapons_primary[][] = {
 	"weapon_mx",
 	"weapon_mx_silenced",
 	"weapon_aa13",
-	"weapon_srs",	
+	"weapon_srs",
+	"weapon_pz"
 };
 
 char weapons_secondary[][] = {
@@ -64,7 +65,7 @@ char weapons_secondary[][] = {
 
 char weapons_grenade[][] = {
 	"weapon_grenade",
-	"weapon_grenade",
+	"weapon_smokegrenade",
 	"weapon_remotedet"
 };
 
