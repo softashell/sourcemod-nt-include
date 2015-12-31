@@ -323,25 +323,3 @@ stock int GetWeaponSlot(int weapon)
 
 	return SLOT_NONE; // Unknown weapon
 }
-
-stock int GetWeaponFromSlot(int client, int weapon_slot)
-{
-	static int hMyWeapons;
-
-	if(!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
-	{
-		ThrowError("Failed to obtain: \"m_hMyWeapons\"!");
-	}
-
-	for(int slot; slot <= 5; slot++)
-	{
-		int weapon = GetEntDataEnt2(client, hMyWeapons + (slot * 4));
-
-		if(GetWeaponSlot(weapon) == weapon_slot)
- 		{
- 			return weapon;
- 		}
-	}
-
-	return -1; // Doesn't have any weapons in target slot
-}
