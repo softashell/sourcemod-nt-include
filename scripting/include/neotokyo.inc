@@ -110,7 +110,7 @@ stock SetPlayerRank(client, rank)
 
 stock GetPlayerDeaths(client)
 {
-	return GetEntProp(client, Prop_Data, "m_iDeaths");	
+	return GetEntProp(client, Prop_Data, "m_iDeaths");
 }
 
 stock SetPlayerDeaths(client, deaths)
@@ -128,7 +128,7 @@ stock SetPlayerStar(client, star)
 	if(star < 0 || star > 5)
 		return;
 
-	return SetEntProp(client, Prop_Send, "m_iStar", star);
+	SetEntProp(client, Prop_Send, "m_iStar", star);
 }
 
 stock SetPlayerClass(client, class)
@@ -156,7 +156,7 @@ stock GetWeaponAmmo(client, type)
 	}
 
 	return GetEntData(client, m_iAmmo + (type * 4));
-}  
+}
 
 stock SetWeaponAmmo(client, type, ammo)
 {
@@ -218,10 +218,10 @@ stock SetPlayerThermopticCharge(client, float:amount)
 stock bool:IsCloaked(client)
 {
 	new cloaked = GetEntProp(client, Prop_Send, "m_iThermoptic");
-	
+
 	if (cloaked > 0)
 		return true;
-	
+
 	return false;
 }
 
@@ -229,7 +229,7 @@ stock bool:IsLeaning(client)
 {
 	if (GetPlayerLean(client) > 0)
 		return true;
-	
+
 	return false;
 }
 
@@ -237,7 +237,7 @@ stock bool:IsUsingVision(client)
 {
 	if (GetPlayerVision(client) > 0)
 		return true;
-	
+
 	return false;
 }
 
@@ -245,10 +245,10 @@ stock bool:IsValidClient(client)
 {
 	if (client < 1 || client > MaxClients)
 		return false;
-	
+
 	if(!IsClientInGame(client))
 		return false;
-	
+
 	return true;
 }
 
