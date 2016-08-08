@@ -20,6 +20,7 @@
 #define VISION_THERMAL 	3
 #define VISION_MOTION	4
 
+#define CLASS_NONE		0
 #define CLASS_RECON		1
 #define CLASS_ASSAULT	2
 #define CLASS_SUPPORT	3
