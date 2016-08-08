@@ -72,7 +72,7 @@ char weapons_grenade[][] = {
 
 stock SetPlayerXP(client, xp)
 {
-	return SetEntProp(client, Prop_Data, "m_iFrags", xp);
+	SetEntProp(client, Prop_Data, "m_iFrags", xp);
 }
 
 stock GetPlayerXP(client)
@@ -95,7 +95,7 @@ stock UpdatePlayerRank(client)
 	else if(xp >= 20)
 		rank = 4; // Lieutenant
 
-	return SetPlayerRank(client, rank);
+	SetPlayerRank(client, rank);
 }
 
 stock GetPlayerRank(client)
@@ -105,7 +105,7 @@ stock GetPlayerRank(client)
 
 stock SetPlayerRank(client, rank)
 {
-	return SetEntProp(client, Prop_Send, "m_iRank", rank);
+	SetEntProp(client, Prop_Send, "m_iRank", rank);
 }
 
 stock GetPlayerDeaths(client)
@@ -115,7 +115,7 @@ stock GetPlayerDeaths(client)
 
 stock SetPlayerDeaths(client, deaths)
 {
-	return SetEntProp(client, Prop_Data, "m_iDeaths", deaths);
+	SetEntProp(client, Prop_Data, "m_iDeaths", deaths);
 }
 
 stock GetPlayerStar(client)
@@ -133,7 +133,7 @@ stock SetPlayerStar(client, star)
 
 stock SetPlayerClass(client, class)
 {
-	return SetEntProp(client, Prop_Send, "m_iClassType", class);
+	SetEntProp(client, Prop_Send, "m_iClassType", class);
 }
 
 stock GetPlayerClass(client)
@@ -182,7 +182,7 @@ stock GetPlayerVision(client)
 
 stock SetPlayerVision(client, vision)
 {
-	return SetEntProp(client, Prop_Send, "m_iVision", vision);
+	SetEntProp(client, Prop_Send, "m_iVision", vision);
 }
 
 stock GetPlayerLean(client)
@@ -192,7 +192,7 @@ stock GetPlayerLean(client)
 
 stock SetPlayerLean(client, lean)
 {
-	return SetEntProp(client, Prop_Send, "m_iLean", lean);
+	SetEntProp(client, Prop_Send, "m_iLean", lean);
 }
 
 stock float:GetPlayerAUX(client)
@@ -202,7 +202,7 @@ stock float:GetPlayerAUX(client)
 
 stock SetPlayerAUX(client, float:amount)
 {
-	return SetEntPropFloat(client, Prop_Send, "m_fSprintNRG", amount);
+	SetEntPropFloat(client, Prop_Send, "m_fSprintNRG", amount);
 }
 
 stock float:GetPlayerThermopticCharge(client)
@@ -212,7 +212,7 @@ stock float:GetPlayerThermopticCharge(client)
 
 stock SetPlayerThermopticCharge(client, float:amount)
 {
-	return SetEntPropFloat(client, Prop_Send, "m_fThermopticNRG", amount);
+	SetEntPropFloat(client, Prop_Send, "m_fThermopticNRG", amount);
 }
 
 stock bool:IsCloaked(client)
