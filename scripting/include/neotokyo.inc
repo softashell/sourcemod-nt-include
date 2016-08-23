@@ -73,7 +73,19 @@ char weapons_grenade[][] = {
 
 stock SetPlayerXP(client, xp)
 {
+	int rank = 0; // Rankless dog
+
+	if(xp >= 0 && xp <= 3)
+		rank = 1; // Private
+	else if(xp >= 4 && xp <= 9)
+		rank = 2; // Corporal
+	else if(xp >= 10 && xp <= 19)
+		rank = 3; // Sergeant
+	else if(xp >= 20)
+		rank = 4; // Lieutenant
+
 	SetEntProp(client, Prop_Data, "m_iFrags", xp);
+	SetPlayerRank(client, rank);
 }
 
 stock GetPlayerXP(client)
