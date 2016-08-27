@@ -180,7 +180,7 @@ stock SetWeaponAmmo(client, type, ammo)
 		ThrowError("Failed to obtain offset: \"m_iAmmo\"!");
 	}
 
-	return SetEntData(client, m_iAmmo + (type * 4), ammo);
+	SetEntData(client, m_iAmmo + (type * 4), ammo);
 }
 
 stock GetActiveWeapon(client)
