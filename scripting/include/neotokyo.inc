@@ -254,12 +254,12 @@ stock bool:IsUsingVision(client)
 	return false;
 }
 
-stock bool:IsValidClient(client)
+stock bool:IsValidClient(client, bool ignoreClientInGameState = false)
 {
 	if (client < 1 || client > MaxClients)
 		return false;
 
-	if(!IsClientInGame(client))
+	if(!ignoreClientInGameState && !IsClientInGame(client))
 		return false;
 
 	return true;
