@@ -3,6 +3,13 @@
 #endif
 #define _neotokyo_included
 
+// Starting with SM 1.11, errors in unused stock functions are no longer suppressed.
+// This means we have to include any dependencies here, regardless of whether they're
+// actually used, or otherwise user code including this .inc file will error on compile.
+#if SOURCEMOD_V_MAJOR >= 1 && SOURCEMOD_V_MINOR >= 11
+#include <sdktools> // Required by RemovePlayerItem()
+#endif
+
 #define TEAM_NONE		0
 #define TEAM_SPECTATOR	1
 #define TEAM_JINRAI 	2
@@ -71,7 +78,7 @@ char weapons_grenade[][] = {
 	"weapon_remotedet"
 };
 
-stock SetPlayerXP(client, xp)
+stock void SetPlayerXP(int client, int xp)
 {
 	int rank = 0; // Rankless dog
 
@@ -88,16 +95,16 @@ stock SetPlayerXP(client, xp)
 	SetPlayerRank(client, rank);
 }
 
-stock GetPlayerXP(client)
+stock int GetPlayerXP(int client)
 {
 	return GetClientFrags(client);
 }
 
-stock UpdatePlayerRank(client)
+stock void UpdatePlayerRank(int client)
 {
-	new xp = GetPlayerXP(client);
+	int xp = GetPlayerXP(client);
 
-	new rank = 0; // Rankless dog
+	int rank = 0; // Rankless dog
 
 	if(xp >= 0 && xp <= 3)
 		rank = 1; // Private
@@ -111,32 +118,32 @@ stock UpdatePlayerRank(client)
 	SetPlayerRank(client, rank);
 }
 
-stock GetPlayerRank(client)
+stock int GetPlayerRank(int client)
 {
 	return GetEntProp(client, Prop_Send, "m_iRank");
 }
 
-stock SetPlayerRank(client, rank)
+stock void SetPlayerRank(int client, int rank)
 {
 	SetEntProp(client, Prop_Send, "m_iRank", rank);
 }
 
-stock GetPlayerDeaths(client)
+stock int GetPlayerDeaths(int client)
 {
 	return GetEntProp(client, Prop_Data, "m_iDeaths");
 }
 
-stock SetPlayerDeaths(client, deaths)
+stock void SetPlayerDeaths(int client, int deaths)
 {
 	SetEntProp(client, Prop_Data, "m_iDeaths", deaths);
 }
 
-stock GetPlayerStar(client)
+stock int GetPlayerStar(int client)
 {
 	return GetEntProp(client, Prop_Send, "m_iStar");
 }
 
-stock SetPlayerStar(client, star)
+stock void SetPlayerStar(int client, int star)
 {
 	if(star < 0 || star > 5)
 		return;
@@ -144,24 +151,24 @@ stock SetPlayerStar(client, star)
 	SetEntProp(client, Prop_Send, "m_iStar", star);
 }
 
-stock SetPlayerClass(client, class)
+stock void SetPlayerClass(int client, int class)
 {
 	SetEntProp(client, Prop_Send, "m_iClassType", class);
 }
 
-stock GetPlayerClass(client)
+stock int GetPlayerClass(int client)
 {
 	return GetEntProp(client, Prop_Send, "m_iClassType");
 }
 
-stock GetAmmoType(weapon)
+stock int GetAmmoType(int weapon)
 {
 	return GetEntProp(weapon, Prop_Send, "m_iPrimaryAmmoType");
 }
 
-stock GetWeaponAmmo(client, type)
+stock int GetWeaponAmmo(int client, int type)
 {
-	static m_iAmmo;
+	static int m_iAmmo;
 
 	if(!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
 	{
@@ -171,9 +178,9 @@ stock GetWeaponAmmo(client, type)
 	return GetEntData(client, m_iAmmo + (type * 4));
 }
 
-stock SetWeaponAmmo(client, type, ammo)
+stock void SetWeaponAmmo(int client, int type, int ammo)
 {
-	static m_iAmmo;
+	static int m_iAmmo;
 
 	if(!m_iAmmo && (m_iAmmo = FindSendPropInfo("CBasePlayer", "m_iAmmo")) == -1)
 	{
@@ -183,54 +190,54 @@ stock SetWeaponAmmo(client, type, ammo)
 	SetEntData(client, m_iAmmo + (type * 4), ammo);
 }
 
-stock GetActiveWeapon(client)
+stock int GetActiveWeapon(int client)
 {
 	return GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
 }
 
-stock GetPlayerVision(client)
+stock int GetPlayerVision(int client)
 {
 	return GetEntProp(client, Prop_Send, "m_iVision");
 }
 
-stock SetPlayerVision(client, vision)
+stock void SetPlayerVision(int client, int vision)
 {
 	SetEntProp(client, Prop_Send, "m_iVision", vision);
 }
 
-stock GetPlayerLean(client)
+stock int GetPlayerLean(int client)
 {
 	return GetEntProp(client, Prop_Send, "m_iLean");
 }
 
-stock SetPlayerLean(client, lean)
+stock void SetPlayerLean(int client, int lean)
 {
 	SetEntProp(client, Prop_Send, "m_iLean", lean);
 }
 
-stock float:GetPlayerAUX(client)
+stock float GetPlayerAUX(int client)
 {
 	return GetEntPropFloat(client, Prop_Send, "m_fSprintNRG");
 }
 
-stock SetPlayerAUX(client, float:amount)
+stock void SetPlayerAUX(int client, float amount)
 {
 	SetEntPropFloat(client, Prop_Send, "m_fSprintNRG", amount);
 }
 
-stock float:GetPlayerThermopticCharge(client)
+stock float GetPlayerThermopticCharge(int client)
 {
 	return GetEntPropFloat(client, Prop_Send, "m_fThermopticNRG");
 }
 
-stock SetPlayerThermopticCharge(client, float:amount)
+stock void SetPlayerThermopticCharge(int client, float amount)
 {
 	SetEntPropFloat(client, Prop_Send, "m_fThermopticNRG", amount);
 }
 
-stock bool:IsCloaked(client)
+stock bool IsCloaked(int client)
 {
-	new cloaked = GetEntProp(client, Prop_Send, "m_iThermoptic");
+	int cloaked = GetEntProp(client, Prop_Send, "m_iThermoptic");
 
 	if (cloaked > 0)
 		return true;
@@ -238,7 +245,7 @@ stock bool:IsCloaked(client)
 	return false;
 }
 
-stock bool:IsLeaning(client)
+stock bool IsLeaning(int client)
 {
 	if (GetPlayerLean(client) > 0)
 		return true;
@@ -246,7 +253,7 @@ stock bool:IsLeaning(client)
 	return false;
 }
 
-stock bool:IsUsingVision(client)
+stock bool IsUsingVision(int client)
 {
 	if (GetPlayerVision(client) > 0)
 		return true;
@@ -254,7 +261,7 @@ stock bool:IsUsingVision(client)
 	return false;
 }
 
-stock bool:IsValidClient(client, bool ignoreClientInGameState = false)
+stock bool IsValidClient(int client, bool ignoreClientInGameState = false)
 {
 	if (client < 1 || client > MaxClients)
 		return false;
@@ -265,29 +272,26 @@ stock bool:IsValidClient(client, bool ignoreClientInGameState = false)
 	return true;
 }
 
-stock StripPlayerWeapons(client, bool:knife=false)
+stock void StripPlayerWeapons(int client, bool knife=false)
 {
-	static hMyWeapons;
+	static int hMyWeapons;
 
 	if(!hMyWeapons && (hMyWeapons = FindSendPropInfo("CBasePlayer", "m_hMyWeapons")) == -1)
 	{
 		ThrowError("Failed to obtain offset: \"m_hMyWeapons\"!");
 	}
 
-	new slot;
-
-	for(slot = 0; slot <= 5; slot++)
+	char classname[13];
+	for(int slot = 0; slot <= 5; slot++)
 	{
-		new weapon = GetEntDataEnt2(client, hMyWeapons + (slot * 4));
+		int weapon = GetEntDataEnt2(client, hMyWeapons + (slot * 4));
 
 		if(!IsValidEntity(weapon))
 			continue;
 
 		if(knife)
 		{
-			decl String:classname[13];
-
-			if(!GetEdictClassname(weapon, classname, 13))
+			if(!GetEdictClassname(weapon, classname, sizeof(classname)))
 				continue;
 
 			if(StrEqual(classname, "weapon_knife"))
