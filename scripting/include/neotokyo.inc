@@ -6,7 +6,7 @@
 // Starting with SM 1.11, errors in unused stock functions are no longer suppressed.
 // This means we have to include any dependencies here, regardless of whether they're
 // actually used, or otherwise user code including this .inc file will error on compile.
-#if SOURCEMOD_V_MAJOR >= 1 && SOURCEMOD_V_MINOR >= 11
+#if SOURCEMOD_V_MAJOR > 1 || (SOURCEMOD_V_MAJOR == 1 && SOURCEMOD_V_MINOR >= 11)
 #include <sdktools> // Required by RemovePlayerItem()
 #endif
 
