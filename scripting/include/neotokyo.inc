@@ -3,6 +3,14 @@
 #endif
 #define _neotokyo_included
 
+// Increment the:
+//   MAJOR version when you make incompatible API changes
+//   MINOR version when you add functionality in a backwards compatible manner
+//   PATCH version is not used; when you make backwards compatible bug fixes,
+//   that change should not increment the version numbering.
+#define NEO_INC_V_MAJOR 1
+#define NEO_INC_V_MINOR 0
+
 // Starting with SM 1.11, errors in unused stock functions are no longer suppressed.
 // This means we have to include any dependencies here, regardless of whether they're
 // actually used, or otherwise user code including this .inc file will error on compile.
