@@ -10,6 +10,8 @@
 #include <sdktools> // Required by RemovePlayerItem()
 #endif
 
+#define NEO_MAXPLAYERS	32
+
 #define TEAM_NONE		0
 #define TEAM_SPECTATOR	1
 #define TEAM_JINRAI 	2
