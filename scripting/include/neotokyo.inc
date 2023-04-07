@@ -9,7 +9,7 @@
 //   PATCH version is not used; when you make backwards compatible bug fixes,
 //   that change should not increment the version numbering.
 #define NEO_INC_V_MAJOR 1
-#define NEO_INC_V_MINOR 0
+#define NEO_INC_V_MINOR 1
 
 // Starting with SM 1.11, errors in unused stock functions are no longer suppressed.
 // This means we have to include any dependencies here, regardless of whether they're
@@ -41,6 +41,17 @@
 #define CLASS_RECON		1
 #define CLASS_ASSAULT	2
 #define CLASS_SUPPORT	3
+
+// The RANK_... defines are the "m_iRank" entprops,
+// except for RANK_INVALID, which is a custom magic value
+// that can be used to indicate no rank is applicable,
+// for example for weapon loadout access logic.
+#define RANK_INVALID -1
+#define RANK_RANKLESSDOG 0
+#define RANK_PRIVATE 1
+#define RANK_CORPORAL 2
+#define RANK_SERGEANT 3
+#define RANK_LIEUTENANT 4
 
 #define IN_AIM			(1 << 23)
 #define IN_LEANL		(1 << 24)
@@ -88,21 +99,23 @@ char weapons_grenade[][] = {
 	"weapon_remotedet"
 };
 
+stock int GetRankOfXP(int xp)
+{
+	if (xp < 0)
+		return RANK_RANKLESSDOG;
+	if (xp < 4)
+		return RANK_PRIVATE;
+	if (xp < 10)
+		return RANK_CORPORAL;
+	if (xp < 20)
+		return RANK_SERGEANT;
+	return RANK_LIEUTENANT;
+}
+
 stock void SetPlayerXP(int client, int xp)
 {
-	int rank = 0; // Rankless dog
-
-	if(xp >= 0 && xp <= 3)
-		rank = 1; // Private
-	else if(xp >= 4 && xp <= 9)
-		rank = 2; // Corporal
-	else if(xp >= 10 && xp <= 19)
-		rank = 3; // Sergeant
-	else if(xp >= 20)
-		rank = 4; // Lieutenant
-
 	SetEntProp(client, Prop_Data, "m_iFrags", xp);
-	SetPlayerRank(client, rank);
+	SetPlayerRank(client, GetRankOfXP(xp));
 }
 
 stock int GetPlayerXP(int client)
@@ -112,20 +125,7 @@ stock int GetPlayerXP(int client)
 
 stock void UpdatePlayerRank(int client)
 {
-	int xp = GetPlayerXP(client);
-
-	int rank = 0; // Rankless dog
-
-	if(xp >= 0 && xp <= 3)
-		rank = 1; // Private
-	else if(xp >= 4 && xp <= 9)
-		rank = 2; // Corporal
-	else if(xp >= 10 && xp <= 19)
-		rank = 3; // Sergeant
-	else if(xp >= 20)
-		rank = 4; // Lieutenant
-
-	SetPlayerRank(client, rank);
+	SetPlayerRank(client, GetRankOfXP(GetPlayerXP(client)));
 }
 
 stock int GetPlayerRank(int client)
