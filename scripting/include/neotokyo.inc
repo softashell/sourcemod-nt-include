@@ -9,7 +9,7 @@
 //   PATCH version is not used; when you make backwards compatible bug fixes,
 //   that change should not increment the version numbering.
 #define NEO_INC_V_MAJOR 1
-#define NEO_INC_V_MINOR 1
+#define NEO_INC_V_MINOR 2
 
 // Starting with SM 1.11, errors in unused stock functions are no longer suppressed.
 // This means we have to include any dependencies here, regardless of whether they're
@@ -24,6 +24,15 @@
 #define TEAM_SPECTATOR	1
 #define TEAM_JINRAI 	2
 #define TEAM_NSF		3
+
+/// The "m_iGameState" states of Neotokyo gamerules proxy
+//
+// The "Waiting for players..." state when Jinrai and/or NSF is empty
+#define GAMESTATE_WAITING_FOR_PLAYERS 1
+// Both teams have players, and round has not ended yet
+#define GAMESTATE_ROUND_ACTIVE 2
+// Round has concluded (win or tie), but the next round hasn't started yet
+#define GAMESTATE_ROUND_OVER 3
 
 #define AMMO_GRENADE	1
 #define AMMO_SMOKE		2
