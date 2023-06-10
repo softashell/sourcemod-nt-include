@@ -9,7 +9,7 @@
 //   PATCH version is not used; when you make backwards compatible bug fixes,
 //   that change should not increment the version numbering.
 #define NEO_INC_V_MAJOR 1
-#define NEO_INC_V_MINOR 2
+#define NEO_INC_V_MINOR 3
 
 // Starting with SM 1.11, errors in unused stock functions are no longer suppressed.
 // This means we have to include any dependencies here, regardless of whether they're
@@ -61,6 +61,13 @@
 #define RANK_CORPORAL 2
 #define RANK_SERGEANT 3
 #define RANK_LIEUTENANT 4
+
+#define STAR_UNASSIGNED 0
+#define STAR_ALPHA 1
+#define STAR_BRAVO 2
+#define STAR_CHARLIE 3
+#define STAR_DELTA 4
+#define STAR_ECHO 5
 
 #define IN_AIM			(1 << 23)
 #define IN_LEANL		(1 << 24)
@@ -164,7 +171,7 @@ stock int GetPlayerStar(int client)
 
 stock void SetPlayerStar(int client, int star)
 {
-	if(star < 0 || star > 5)
+	if(star < STAR_UNASSIGNED || star > STAR_ECHO)
 		return;
 
 	SetEntProp(client, Prop_Send, "m_iStar", star);
